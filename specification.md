@@ -21,8 +21,8 @@ This specification will guide our development of the currency conversion app.
 ## Functional Specification
 We need to define the objects and functions we’ll need to create:
 1. Home country object
-   a. Local currency
+   1. Local currency
 2. Destination country object
-   a. Destination currency
+   1. Destination currency
 3. Calculate rate function
-   a. use API
+   1. use API
