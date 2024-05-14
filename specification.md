@@ -1,5 +1,5 @@
 # Currency Converter App
-## Functional Specification
+## App Description
 This specification will guide our development of the currency conversion app.
 
 ### Things we want it to do are:
@@ -17,3 +17,12 @@ This specification will guide our development of the currency conversion app.
 4. Let them know when their day is full.
 5. Allow the user to rearrange the items by drag-and-drop.
 6. Allow the user to print the itinerary with a print style sheet that makes it look nice.
+
+## Functional Specification
+We need to define the objects and functions we’ll need to create:
+1. Home country object
+   a. Local currency
+2. Destination country object
+   a. Destination currency
+3. Calculate rate function
+   a. use API
