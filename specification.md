@@ -25,4 +25,4 @@ We need to define the objects and functions we’ll need to create:
 2. Destination country object
    1. Destination currency
 3. Calculate rate function
-   1. use API
+   1. use [API](https://www.npmjs.com/package/@everapi/freecurrencyapi-js) 
