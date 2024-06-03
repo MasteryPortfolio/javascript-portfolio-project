@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Helper</title>
+    <link href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Travel Helper</h1>
+    </header>
+    <section>
+        <h2>Currency Converter</h2>
+        <input type="number" id="amount" placeholder="Enter amount">
+        <select id="fromCurrency">
+            <option value="USD">US Dollar</option>
+            <option value="EUR">Euro</option>
+            <!-- Add other currencies as needed -->
+        </select>
+        <select id="toCurrency">
+            <option value="EUR">Euro</option>
+            <option value="USD">US Dollar</option>
+            <!-- Add other currencies as needed -->
+        </select>
+        <button onclick="convertCurrency()">Convert</button>
+        <p id="result"></p>
+    </section>
+    <footer></footer>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
