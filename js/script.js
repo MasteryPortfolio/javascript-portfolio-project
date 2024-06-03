@@ -14,3 +14,30 @@ async function convertCurrency() {
         resultElement.innerText = 'Unable to retrieve currency data.';
     }
 }
+
+// Itinerary Functionality
+class Item {
+    constructor(title) {
+        this.title = title;
+    }
+}
+
+const itinerary = {
+    items: [],
+
+    updateList: function (title) {
+        const item = new Item(title);
+        this.items.push(item);
+        console.log(`${item.title} has been added to the itinerary.`);
+    }
+}
+
+function addItem() {
+    const title = prompt('Enter itinerary item');
+    console.log(title);
+    itinerary.updateList(title);
+    console.log(itinerary.items);
+}
+
+
+//document.querySelector('#addItemBtn').addEventListener('click', addItem);
