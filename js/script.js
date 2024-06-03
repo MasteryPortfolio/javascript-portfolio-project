@@ -76,6 +76,20 @@ function clickToAdd() {
     addItemField.value = '';
 }
 
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
+}
+
+function drop(event) {
+    event.preventDefault();
+    let data = event.dataTransfer.getData("text");
+    itineraryList.appendChild(document.getElementById(data));
+}
+
 function addItem(title) {
 
     const newItem = document.createElement('li');
@@ -85,6 +99,7 @@ function addItem(title) {
     newItem.draggable = true;
     newItem.className = 'list-item';
     itineraryList.appendChild(newItem);
+    newItem.addEventListener('dragstart', drag);
 
     newItemText.textContent = title;
     newItem.appendChild(newItemText);
@@ -96,5 +111,15 @@ function addItem(title) {
     deleteBtn.addEventListener('click', deleteItem);
 }
 
+
 addItemBtn.addEventListener('click', clickToAdd);
 
+
+addItemField.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        clickToAdd();
+    }
+});
+
+itineraryList.addEventListener('drop', drop);
+itineraryList.addEventListener('dragover', allowDrop);
