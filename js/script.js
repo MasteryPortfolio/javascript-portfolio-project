@@ -18,88 +18,17 @@ async function convertCurrency() {
 // Itinerary Functionality
 const addItemBtn = document.getElementById('addItemBtn');
 const addItemField = document.getElementById('itemToAdd');
-const itineraryList = document.getElementById('itineraryList');
-
-class Item {
-    constructor(title) {
-        this.title = title;
-    }
-}
-
-const itinerary = {
-    items: [],
-
-    updateList: function (title) {
-        const item = new Item(title);
-        this.items.push(item);
-        console.log(this.items);
-    },
-
-    rebuildList: function () {
-        for (let i = 0; i < this.items.length; i++) {
-            const title = this.items[i].title;
-            console.log(title);
-            addItem(title);
-        }
-    },
-
-}
-
-
-function emptyList() {
-    while (itineraryList.lastChild) {
-        itineraryList.removeChild(itineraryList.lastChild);
-    }
-    itinerary.rebuildList();
-}
-
-function deleteItem(event) {
-    const itemTitle = event.currentTarget.previousElementSibling.textContent;
-    for (let item of itinerary.items) {
-        try {
-            if (itemTitle === item.title) {
-                const index = itinerary.items.indexOf(item);
-                itinerary.items.splice(index, 1);
-                console.log(itinerary.items);
-                emptyList();
-            }
-        } catch (e) {
-            console.error(e);
-        }
-    }
-}
-
-function clickToAdd() {
-    title = addItemField.value;
-    itinerary.updateList(title);
-    addItem(title);
-    addItemField.value = '';
-}
-
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-}
-
-function drop(event) {
-    event.preventDefault();
-    let data = event.dataTransfer.getData("text");
-    itineraryList.appendChild(document.getElementById(data));
-}
+const sortableList = document.getElementById('sortableList');
 
 function addItem(title) {
-
     const newItem = document.createElement('li');
     const newItemText = document.createElement('span');
     const deleteBtn = document.createElement('button');
 
     newItem.draggable = true;
-    newItem.className = 'list-item';
-    itineraryList.appendChild(newItem);
-    newItem.addEventListener('dragstart', drag);
+    newItem.className = 'list-item form-control my-3';
+    newItem.id = Math.floor(Math.random() * 1000);
+    sortableList.appendChild(newItem);
 
     newItemText.textContent = title;
     newItem.appendChild(newItemText);
@@ -107,19 +36,76 @@ function addItem(title) {
     deleteBtn.textContent = 'x';
     deleteBtn.className = 'btn-delete';
     deleteBtn.title = 'Remove item';
-    newItem.appendChild(deleteBtn);
     deleteBtn.addEventListener('click', deleteItem);
+    newItem.appendChild(deleteBtn);
 }
 
+function clickToAdd() {
+    title = addItemField.value;
+    // itinerary.updateList(title);
+    addItem(title);
+    addItemField.value = '';
+}
+
+function deleteItem(event) {
+    const item = event.currentTarget.parentElement;
+    sortableList.removeChild(item);
+}
+
+let draggedItem = null;
+
+sortableList.addEventListener("dragstart", (event) => {
+    draggedItem = event.target;
+    setTimeout(() => {
+        event.target.style.opacity = 0;
+    }, 0);
+});
+
+sortableList.addEventListener("dragend", (event) => {
+    setTimeout(() => {
+        event.target.style.opacity = 1;
+        draggedItem = null;
+    }, 0);
+});
+
+sortableList.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    const afterElement = getDragAfterElement(sortableList, event.clientY);
+    if (afterElement == null) {
+        sortableList.appendChild(draggedItem);
+    } else {
+        sortableList.insertBefore(draggedItem, afterElement);
+    }
+});
+
+const getDragAfterElement = (container, y) => {
+    const draggableElements = [
+        ...container.querySelectorAll("li:not(.dragging)")
+    ];
+
+    return draggableElements.reduce(
+        (closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return {
+                    offset: offset,
+                    element: child
+                };
+            } else {
+                return closest;
+            }
+        },
+        {
+            offset: Number.NEGATIVE_INFINITY
+        }
+    ).element;
+};
 
 addItemBtn.addEventListener('click', clickToAdd);
-
 
 addItemField.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         clickToAdd();
     }
 });
-
-itineraryList.addEventListener('drop', drop);
-itineraryList.addEventListener('dragover', allowDrop);
