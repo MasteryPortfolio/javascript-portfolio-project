@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Travel Helper</title>
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+    <link rel="manifest" href="/manifest.webmanifest">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -28,9 +32,11 @@
                         <h2 class="text-success">Currency Converter</h2>
                         <div class="row row-cols-lg-auto g-3 align-items-center">
                             <div class="col-12 col-lg-2">
+                                <label for="amount" class="visually-hidden">Amount to Convert</label>
                                 <input type="number" class="form-control" id="amount" placeholder="Enter amount">
                             </div>
                             <div class="col-12 col-lg-3">
+                                <label for="fromCurrency" class="visually-hidden">Currency to Convert From</label>
                                 <select id="fromCurrency" class="form-select">
                                     <option selected="selected" value="USD">US Dollar</option>
                                     <option value="AFN">Afghanistan Afghani</option>
@@ -192,6 +198,7 @@
                                 </select>
                             </div>
                             <div class="col-12 col-lg-3">
+                                <label for="toCurrency" class="visually-hidden">Currency to Convert To</label>
                                 <select id="toCurrency" class="form-select">
                                     <option value="USD">US Dollar</option>
                                     <option value="AFN">Afghanistan Afghani</option>
