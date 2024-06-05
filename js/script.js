@@ -33,8 +33,8 @@ function addItem(title) {
     newItemText.textContent = title;
     newItem.appendChild(newItemText);
 
-    deleteBtn.textContent = 'x';
-    deleteBtn.className = 'btn-delete';
+    deleteBtn.className = 'btn-delete material-symbols-outlined';
+    deleteBtn.textContent = 'delete';
     deleteBtn.title = 'Remove item';
     deleteBtn.addEventListener('click', deleteItem);
     newItem.appendChild(deleteBtn);
